@@ -1,15 +1,15 @@
 function merged
 
-% dodaj ścieżkę skryptu z filterm DPAD - addpath
-% dodaj ścieżkę VLFeat -- Vision Lab Features Library \vlfeat-0.9.21-bin\vlfeat-0.9.21\toolbox\vl_setup
-addpath('E:\Pulpit\magisterium\dicomvol2\bus-segmentation-master\iciar2016\libs\pre\DPAD2006_OK')
-run('E:\Pulpit\vlfeat-0.9.21-bin\vlfeat-0.9.21\toolbox\vl_setup');
+% instrukcje w: "Program dicomUSG3vol3 - instrukcja obsługi.txt"
 
+addpath('E:\Pulpit\magisterium\dicomvol2\bus-segmentation-master\') % dodaj odpowiednią ścieżkę do 'ultrasound segmentation\iciar...' w tym folderu z filtrem DPAD
+addpath('E:\Pulpit\magisterium\dicomvol2\bus-segmentation-master\iciar2016\libs\pre\DPAD2006_OK\')
+run('E:\Pulpit\vlfeat-0.9.21-bin\vlfeat-0.9.21\toolbox\vl_setup'); % uruchom skrypt ze ścieżki VLFeat -- Vision Lab Features Library \vlfeat-0.9.21-bin\vlfeat-0.9.21\toolbox\vl_setup
 
 javax.swing.UIManager.setLookAndFeel('com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel');
 format long;
 
-% User Interface
+% interfejs użytkownika
 f = figure('Visible','on','Name','Dicom_USG',... 
     'units','normalized','outerposition',[0 0 1 1],...
     'Color',[.94 .97 1]);
@@ -215,13 +215,13 @@ segmentation = uicontrol('Style','pushbutton','Parent',f,...
     'String','Segmentation',...
     'Callback',{@US_NcutImage, sciezka});
 
-guz = uicontrol('Style','pushbutton','Parent',f,...
+autoroi = uicontrol('Style','pushbutton','Parent',f,...
     'units','normalized',...
     'Position',[.75 .82 .1 .04],...
     'String','Auto ROI',...
     'Callback',{@guz_callback,tabela});
 
-guz2 = uicontrol('Style','pushbutton','Parent',f,...
+manualroi = uicontrol('Style','pushbutton','Parent',f,...
     'units','normalized',...
     'Position',[.75 .75 .1 .04],...
     'String','Choose ROI manually',...
@@ -338,9 +338,9 @@ stak3 = zeros(size(stak2));
         slice = round(get(slider1,'Value'));
         im2=im2double(getimage(imm));
         [IBW2,~] = measureTumourAndVessels('','',sciezka);% //////////////////////////////////////////////
-        guz = IBW2;
-        guz2=bsxfun(@times,im2,guz);
-        stak3(:,:,:,slice)=guz2;
+        autoroi = IBW2;
+        manualroi=bsxfun(@times,im2,autoroi);
+        stak3(:,:,:,slice)=manualroi;
         switch isempty(W1Node)
 %             case 0
 %                 set(tabela,'ColumnName',{'Slice number','Red vessels area [mm2]','Blue vessels area [mm2]','Total vessels area [mm2]','Tumour area [mm2]','Ratio'});
@@ -399,7 +399,7 @@ stak3 = zeros(size(stak2));
                 set(volume_guz,'Visible','on');
                 set(volume_guz_text,'Visible','on');
                 %% Calculations
-            powierzchnia_guza=length(find(guz==1));
+            powierzchnia_guza=length(find(autoroi==1));
             im_red=stak3(:,:,1,slice);
             im_blue=stak3(:,:,2,slice);
             im_gray=rgb2gray(stak3(:,:,:,slice));
@@ -432,8 +432,8 @@ stak3 = zeros(size(stak2));
         im2=im2double(getimage(imm));
         immmm = imfreehand(imm);
         wait(immmm);
-        guz = createMask(immmm); % ręczne tworzenie maski guza
-        guz3=bsxfun(@times,im2,guz);
+        autoroi = createMask(immmm); % ręczne tworzenie maski guza
+        guz3=bsxfun(@times,im2,autoroi);
         figure(1);imshow(guz3);
 %       stak4(:,:,slice)=guz;
         stak3(:,:,:,slice)=guz3;
@@ -497,7 +497,7 @@ stak3 = zeros(size(stak2));
                 set(volume_text,'Visible','on');
                 set(volume_guz,'Visible','on');
                 set(volume_guz_text,'Visible','on');
-            powierzchnia_guza=length(find(guz==1));
+            powierzchnia_guza=length(find(autoroi==1));
             im_red=stak3(:,:,1,slice);
             im_blue=stak3(:,:,2,slice);
             im_gray=rgb2gray(stak3(:,:,:,slice));
@@ -575,7 +575,8 @@ stak3 = zeros(size(stak2));
         end 
         clipboard ( 'copy', str );
     end
- 
+
+%% Oblicz objętość
     function volume_callback(~,~,tabela,tabela2)
         danee = get(tabela,'Data');
         daneee = get(tabela2,'Data');
@@ -750,7 +751,7 @@ stak3 = zeros(size(stak2));
     end
     
     function US_NcutImage(~,~,sciezka)
-%% Preprocesing
+%% Preprocesing dla wyświetlenia figury z segmentacją
         sliceNumber = round(get(slider1,'Value'));
         img = dicomread(sciezka,'frames',sliceNumber);
         img = imresize(img,[160, 160],'bicubic');
@@ -764,7 +765,7 @@ stak3 = zeros(size(stak2));
         filteredImage = dpad(img,0.2,100,'cnoise',5,'big',5,'aja');
         filteredImage = filteredImage(5:end-4,5:end-4);
         filteredImage = imresize(filteredImage,[nr,nc]);
-%% Segmentation
+%% Segmentacja dla wyświetlenia figury
         nbSegments = 4;
         [SegLabel,~,NcutEigenvectors,~,~,~]= NcutImage(filteredImage,nbSegments);
         NC_Imgs = [];
@@ -778,7 +779,7 @@ stak3 = zeros(size(stak2));
     end
     
     function [IBW2,tumourArea] = measureTumourAndVessels(~,~,sciezka)      
-%% Preprocesing
+%% Preprocesing dla pomnożenia maski
         sliceNumber = round(get(slider1,'Value'));
         img = dicomread(sciezka,'frames',sliceNumber);
         img = imresize(img,[160, 160],'bicubic');
@@ -791,7 +792,7 @@ stak3 = zeros(size(stak2));
         [nr,nc,~] = size(img);
         img = imadjust(img);
         img = imcomplement(img);
-%% Segmentation
+%% Segmentacja dla pomnożenia maski
         filteredImage = dpad(img,0.2,100,'cnoise',5,'big',5,'aja');
         imgForMask = imresize(imgForMask,[nr,nc]);
         filteredImage = filteredImage(5:end-4,5:end-4);
