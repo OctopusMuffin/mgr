@@ -12,5 +12,5 @@ Skrypt ze ścieżki „mgr/autosegm_i_ewaluacja/ultrasound segmentation/iciar201
 
 „dicom_segmentacja” zawiera skrypt „dicomUSGvol3.m” wraz z instrukcją programu. „dicomUSGvol3.m” to rozszerzenie programu „dicomUSG2vol2.m”, które polega na dodaniu opcji zliczania powierzchni guza i unaczynienia guza bez konieczności ręcznego obrysowywania jego maski.
 
-Skrypty w folderze „autosegm_i_ewaluacja” i „dicom_segmentacja” to implementacje w środowisku MATLAB.
+Skrypty w folderze „autosegm_i_ewaluacja” oraz „dicom_segmentacja” to implementacje w środowisku MATLAB.
 
