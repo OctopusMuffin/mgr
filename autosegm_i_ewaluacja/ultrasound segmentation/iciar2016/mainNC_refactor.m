@@ -146,7 +146,7 @@ for i=1:numel(fileList)
     end
     [~,indNCMax] = max(ValMax);
     IBW2 = NC_BW{indNCMax};
-    figure('Visible', 'on', 'Name','Maaaaaaaaaaaaaska'); imshow(IBW2,[]);
+    figure('Visible', 'on', 'Name','Maska'); imshow(IBW2,[]);
     saveas(gcf,[outputPath name '_3Post3_' num2str(j) '_' num2str(z) '.jpg']); close;
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
