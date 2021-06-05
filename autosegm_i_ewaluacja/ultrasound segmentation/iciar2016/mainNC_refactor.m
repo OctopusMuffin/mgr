@@ -50,36 +50,7 @@ for i=1:numel(fileList)
         
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%% Segmentation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
-%     img = img(5:end-4,5:end-4);
-%     img = imresize(img,[nr,nc]);
-%     img = normalise(img);
-% %     img = im2bw(img,graythresh(img));
-%     img = double(img >= 0.8);
-%     img = imclearborder(img);
-%     img= imfill(img,'holes');
-% %     %figure('Visible', 'on'); imshow(img,[]); 
-% %     %saveas(gcf,[outputPath name '_2Seg1' '.jpg']); close;
-    
-%     
-%     nbSegments = 4
-%     disp('computing Ncut eigenvectors ...');
-%     tic;
-%     [SegLabel,NcutDiscrete,NcutEigenvectors,NcutEigenvalues,W,imageEdges]= NcutImage(img,nbSegments);
-%     disp(['The computation took ' num2str(toc) ' seconds on the ' num2str(size(img,1)) 'x' num2str(size(img,2)) ' image']);
-%     figure(2);clf
-%     bw = edge(SegLabel,0.01);
-%     J1=showmask(img,imdilate(bw,ones(2,2))); imagesc(J1);axis off
-%     
-%     NC_Imgs = [];
-%     for j=1:nbSegments
-%         NC_Img = reshape(NcutEigenvectors(:,j),nr,nc);
-%          %figure('Visible', 'on'); imshow(NC_Img,[]); 
-%          %saveas(gcf,[outputPath '_2Seg2_' num2str(j) '.jpg']); close;
-%         NC_Imgs = [NC_Imgs {NC_Img}];
-%     end
-%     
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
 
     nbSegments = 4;
     [SegLabel,NcutDiscrete,NcutEigenvectors,NcutEigenvalues,W,imageEdges]= NcutImage(img,nbSegments);
@@ -95,16 +66,6 @@ for i=1:numel(fileList)
     bw = edge(SegLabel,0.01);
     J1=showmask(img,imdilate(bw,ones(2,2))); imagesc(J1);axis off
 
-%     
-%     nbSegments = 6;
-%     [~,~,NcutEigenvectors,~,~,~] = NcutImage(img,nbSegments); 
-%     NC_Imgs = [];
-%     for j=1:nbSegments
-%         NC_Img = reshape(NcutEigenvectors(:,j),nr,nc);
-%         figure('Visible', 'on'); imshow(NC_Img,[]); 
-%         saveas(gcf,[outputPath name '_2Seg2_' num2str(j) '.jpg']); close;
-%         NC_Imgs = [NC_Imgs {NC_Img}];
-%     end
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%% Postprocessing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
