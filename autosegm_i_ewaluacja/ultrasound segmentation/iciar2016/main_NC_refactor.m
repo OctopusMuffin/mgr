@@ -42,7 +42,7 @@ for i=1:numel(fileList)
 %     stepsize = 0.01;
 %     nosteps = 200; % 10
 %     wnSize = 17; % 5
-    img=dpad(img,0.2,100,'cnoise',5,'big',5,'aja');
+    img = dpad(img,0.2,100,'cnoise',5,'big',5,'aja');
     %img = dpad(img, stepsize, nosteps,'cnoise',5,'big',wnSize,'aja');
     
     %figure('Visible', 'on'); imshow(img,[]); 
@@ -116,7 +116,8 @@ for i=1:numel(fileList)
     
     %-Compute quantative and qualitative results
     outPost{i} = double(IBW2);
-    gtFile{i}= double(imread([gtPath name ext]));
+    gtFile{i}= double(im2gray(imread([gtPath name ext])));
+%    gtFile{i}= double(im2gray(imread([gtPath name '_maska' ext])));
     if max(max(gtFile{i}))==255
         gtFile{i} = gtFile{i}./255;
     end

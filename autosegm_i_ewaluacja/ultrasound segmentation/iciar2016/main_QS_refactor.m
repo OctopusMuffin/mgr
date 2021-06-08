@@ -1,10 +1,11 @@
 clc;close all;clear all; warning('off','all');
 addpath(genpath('./Libs'));
 run('E:\Pulpit\vlfeat-0.9.21-bin\vlfeat-0.9.21\toolbox\vl_setup');
+%run('C:\MATLAB_libs\vlfeat\vlfeat-0.9.20\toolbox\vl_setup');
 %%
 tic;
-% NC-FR , NC-PPB_NoItr , NC-DPAD
-method = 'NC-DPAD';
+
+method = 'QS';
 inputPath = './data/Input/';
 gtPath = './data/GT/';
 outputPath = ['./results/' method '/'];
@@ -24,8 +25,8 @@ for i=1:numel(fileList)
     img = im2double(img);
     [nr,nc,~] = size(img);
     imgSize(i) = numel(img);
-    %figure('Visible', 'off'); imshow(img,[]);
-    %saveas(gcf,[outputPath name '_0Input.jpg']); close;
+    figure('Visible', 'off'); imshow(img,[]);
+    saveas(gcf,[outputPath name '_0Input.jpg']); close;
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%% Preprocessing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -42,7 +43,7 @@ for i=1:numel(fileList)
 %     stepsize = 0.01;
 %     nosteps = 200; % 10
 %     wnSize = 17; % 5
-    %img=dpad(img,0.2,100,'cnoise',5,'big',5,'aja');
+    %img = dpad(img,0.2,100,'cnoise',5,'big',5,'aja');
     %img = dpad(img, stepsize, nosteps,'cnoise',5,'big',wnSize,'aja');
 
 
@@ -51,8 +52,8 @@ for i=1:numel(fileList)
      img = fcnFrostFilter(img,getnhood(strel('disk',M_Radius)));
 
     
-    %figure('Visible', 'on'); imshow(img,[]); 
-    %saveas(gcf,[outputPath name '_1Pre3.jpg']); close;
+    figure('Visible', 'on'); imshow(img,[]); 
+    saveas(gcf,[outputPath name '_1Pre3.jpg']); close;
         
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%% Segmentation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -99,8 +100,8 @@ for i=1:numel(fileList)
     
     %-Compute quantative and qualitative results
     outPost{i} = double(IBW2);
-    gtFile{i}= double(im2gray(imread([gtPath name ext])));
-%     gtFile{i}= double(im2gray(imread([gtPath name '_maska' ext])));
+%    gtFile{i}= double(im2gray(imread([gtPath name ext])));
+    gtFile{i}= double(im2gray(imread([gtPath name '_maska' ext])));
     if max(max(gtFile{i}))==255
         gtFile{i} = gtFile{i}./255;
     end
@@ -132,5 +133,3 @@ for i=1:numel(fileList)
 end
 
 %%
-% save(matPath);
-% disp(['The computation took ' num2str(toc) ' seconds on the ' num2str(size(img,1)) 'x' num2str(size(img,2)) ' image']);
