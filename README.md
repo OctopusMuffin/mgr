@@ -10,7 +10,7 @@ Program wyjściowy: BUS Segmentation – zestaw funkcji do przetwarzania wstępn
 
 Skrypt ze ścieżki „mgr/autosegm_i_ewaluacja/ultrasound segmentation/iciar2016/mainNC_refactor.m” pozwala pobrać zbiór obrazów wejściowych, zsegmentować je, a na końcu dokonać ilościowej oceny segmentacji, dzięki porównaniu do zbioru referencyjnego z prawdziwymi maskami guza.
 
-„dicom_segmentacja” zawiera skrypt „dicomUSGvol3.m” wraz z instrukcją programu. „dicomUSGvol3.m” to rozszerzenie programu „dicomUSG2vol2.m” [mgr Agnieszka Drzał], które polega na dodaniu opcji zliczania powierzchni guza i unaczynienia guza bez konieczności ręcznego obrysowywania jego maski.
+„dicom_segmentacja” zawiera skrypt „dicomUSGvol3.m” wraz z instrukcją programu. „dicomUSGvol3.m” to rozszerzenie programu „dicomUSG2vol2.m” [mgr Agnieszka Drzał, WBBiB UJ, Zakład Biofizyki, Pracownia Radiospektroskopii Nowotworów i Radiobiologii], które polega na dodaniu opcji zliczania powierzchni guza i unaczynienia guza bez konieczności ręcznego obrysowywania jego maski.
 
 Skrypty w folderze „autosegm_i_ewaluacja” oraz „dicom_segmentacja” to implementacje w środowisku MATLAB.
 
