@@ -1,7 +1,7 @@
 # mgr
 Algorytm do automatycznej segmentacji obrazu utrasonograficznego
 
-Zawiera dwa podejścia do automatycznej segmentacji obrazu z USG wysokiej rozdzielczości do obrazowania żywych myszy in vivo.
+Zawiera dwa podejścia do automatycznej segmentacji obrazu z ultrasonografii małych zwierząt.
 
 W „U-Net” znajduje się implementacja konwolucyjnej sieci neuronowej w Pythonie z użyciem biblioteki TensorFlow.
 
