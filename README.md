@@ -19,7 +19,7 @@ Skrypty w folderze „autosegm_i_ewaluacja” oraz „dicom_segmentacja” to im
 
 -------------------------------------------------------------------------------------------------------
 Eng. version.
-Master's Thesis
+# Master's Thesis
 An algorithm for automatic ultrasonographic image segmentation; with an interface for counting tumor area and its vascularization without the need for manually outlining its mask.
 
 <img width="934" alt="image" src="https://github.com/octpsmon/mgr/assets/78450868/4d4563fa-dbaa-45e4-b34f-1e4c299551e5">
