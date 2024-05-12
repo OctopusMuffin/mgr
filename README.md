@@ -1,5 +1,6 @@
 # mgr
-Algorytm do automatycznej segmentacji obrazu utrasonograficznego
+Algorytm do automatycznej segmentacji obrazu utrasonograficznego;
+z interfejsem do zliczania powierzchni guza i jego unaczynienia bez konieczności ręcznego obrysowywania jego maski.
 
 Zawiera dwa podejścia do automatycznej segmentacji obrazu z ultrasonografii małych zwierząt.
 
