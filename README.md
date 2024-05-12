@@ -18,11 +18,12 @@ Skrypt ze ścieżki „mgr/autosegm_i_ewaluacja/ultrasound segmentation/iciar201
 Skrypty w folderze „autosegm_i_ewaluacja” oraz „dicom_segmentacja” to implementacje w środowisku MATLAB.
 
 -------------------------------------------------------------------------------------------------------
-
+Eng. version.
 Master's Thesis
 An algorithm for automatic ultrasonographic image segmentation; with an interface for counting tumor area and its vascularization without the need for manually outlining its mask.
 
 <img width="934" alt="image" src="https://github.com/octpsmon/mgr/assets/78450868/4d4563fa-dbaa-45e4-b34f-1e4c299551e5">
+
 Includes two approaches to automatic image segmentation from small animal ultrasonography.
 
 The "U-Net" contains an implementation of a convolutional neural network in Python using the TensorFlow library.
