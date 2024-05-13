@@ -35,6 +35,7 @@ An algorithm for automatic ultrasonographic image segmentation; with an interfac
 Repository includes two approaches to automatic segmentation of ultrasound images from small animals: deep learning and non-deep learning. High-resolution ultrasound data used for training and testing were obtained by Agnieszka Drzał (Jagiellonian University).
 
 <img width="934" alt="image" src="https://github.com/octpsmon/mgr/assets/78450868/4d4563fa-dbaa-45e4-b34f-1e4c299551e5">
+
 Fig. GUI with the option of automatic and manual segmentation and quantitative analysis of the tumor.
 
 In "U-Net," there is an implementation of a convolutional neural network in Python using the TensorFlow library.
